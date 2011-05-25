@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.Caches.Membase", "NHibernate.Caches.Membase\NHibernate.Caches.Membase.csproj", "{CBF5C4FF-C4C7-47F5-BB65-F37FD5BED88B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.Caches.Membase.Tests", "NHibernate.Caches.Membase.Tests\NHibernate.Caches.Membase.Tests.csproj", "{B0896A23-2CCF-46EE-9C35-95D58998FBED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBF5C4FF-C4C7-47F5-BB65-F37FD5BED88B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF5C4FF-C4C7-47F5-BB65-F37FD5BED88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF5C4FF-C4C7-47F5-BB65-F37FD5BED88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF5C4FF-C4C7-47F5-BB65-F37FD5BED88B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0896A23-2CCF-46EE-9C35-95D58998FBED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0896A23-2CCF-46EE-9C35-95D58998FBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0896A23-2CCF-46EE-9C35-95D58998FBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0896A23-2CCF-46EE-9C35-95D58998FBED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

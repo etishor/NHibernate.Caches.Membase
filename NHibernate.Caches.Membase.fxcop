@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="10.0" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">$(FxCopDir)\Xml\FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-US" />
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+  <IgnoreGeneratedCode>False</IgnoreGeneratedCode>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/NHibernate.Caches.Membase/bin/Debug/NHibernate.Caches.Membase.dll" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityTransparencyRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="10.0">
+  <Namespaces>
+   <Namespace Name="Nhibernate.Caches.Membase">
+    <Messages>
+     <Message Id="Membase" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2011-05-25 10:34:54Z">
+      <Issue Name="Namespace">
+       <Item>Membase</Item>
+       <Item>Nhibernate.Caches.Membase</Item>
+      </Issue>
+      <Notes>
+       <User Name="iulian.margarintescu">
+        <Note Id="1" />
+       </User>
+      </Notes>
+     </Message>
+     <Message Id="Nhibernate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2011-05-25 10:34:54Z">
+      <Issue Name="Namespace">
+       <Item>Nhibernate</Item>
+       <Item>Nhibernate.Caches.Membase</Item>
+      </Issue>
+      <Notes>
+       <User Name="iulian.margarintescu">
+        <Note Id="2" />
+       </User>
+      </Notes>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/NHibernate.Caches.Membase/bin/Debug/NHibernate.Caches.Membase.dll">
+    <Modules>
+     <Module Name="nhibernate.caches.membase.dll">
+      <Messages>
+       <Message Id="Membase" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2011-05-25 10:34:54Z">
+        <Issue Name="Assembly">
+         <Item>Membase</Item>
+         <Item>'NHibernate.Caches.Membase.dll'</Item>
+        </Issue>
+        <Notes>
+         <User Name="iulian.margarintescu">
+          <Note Id="0" />
+         </User>
+        </Notes>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="Nhibernate.Caches.Membase">
+        <Types>
+         <Type Name="MembaseCache">
+          <Messages>
+           <Message Id="Membase" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2011-05-25 10:34:54Z">
+            <Issue Name="Type">
+             <Item>Membase</Item>
+             <Item>'MembaseCache'</Item>
+            </Issue>
+            <Notes>
+             <User Name="iulian.margarintescu">
+              <Note Id="3" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MembaseCacheProvider">
+          <Messages>
+           <Message Id="Membase" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2011-05-25 10:34:54Z">
+            <Issue Name="Type">
+             <Item>Membase</Item>
+             <Item>'MembaseCacheProvider'</Item>
+            </Issue>
+            <Notes>
+             <User Name="iulian.margarintescu">
+              <Note Id="4" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Notes>
+   <User Name="iulian.margarintescu">
+    <Note Id="0" Modified="2011-05-25 10:45:24Z">Name of the cache engine</Note>
+    <Note Id="1" Modified="2011-05-25 10:45:29Z">Name of the cache engine</Note>
+    <Note Id="2" Modified="2011-05-25 10:45:37Z">Name of the ORM</Note>
+    <Note Id="3" Modified="2011-05-25 10:45:40Z">Name of the cache engine</Note>
+    <Note Id="4" Modified="2011-05-25 10:45:44Z">Name of the cache engine</Note>
+   </User>
+  </Notes>
+  <Rules>
+   <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
+    <Resolution Name="Assembly">Correct the spelling of '{0}' in assembly name {1}.</Resolution>
+    <Resolution Name="Namespace">Correct the spelling of '{0}' in namespace name '{1}'.</Resolution>
+    <Resolution Name="Type">Correct the spelling of '{0}' in type name {1}.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>
