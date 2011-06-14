@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>Change Log</title>
+	<style type="text/css">
+		body { font: normal 10pt Helvetica, Arial, sans-serif; }
+	</style>
+</head>
+<body><h1>Membase Client Version History</h1>
+
+<h2>Version 2.12</h2>
+
+<ul>
+<li>Includes all the changes from Enyim.Caching 2.9</li>
+<li>Fixed <a href="https://github.com/enyim/EnyimMemcached/issues#issue/60">Issue #60</a> - Bucket and BucketPassword not picked up from config</li>
+<li>Membase 1.7 support:
+<ul>
+<li>Get&amp;Touch allows you to extend the expiration of an item without retrieving it.</li>
+<li>Sync allows you to wait for an item to be replicated, changed, persisted, etc. <em>Please note: the maximum time to wait is ~2.5 sec and this limit is enforced by the Membase server (by closing the connection) so use it only for short waits.</em></li>
+</ul></li>
+</ul>
+
+<h2>Version 2.11</h2>
+
+<ul>
+<li>Includes all the changes from Enyim.Caching 2.8 (perfmon, bugfixes)</li>
+<li>Cleaned up the credentials handling: only BucketName and BucketPasswords will be used, Credentials is obsolete. This way you do not have to specify your Membase cluster admin password in config files. See the wiki for more information.</li>
+</ul>
+
+<h2>Version 2.10</h2>
+
+<ul>
+<li>Changed the namespace to Membase and the client's name to MembaseClient to follow the name change of the product (&amp; the company).</li>
+<li>Includes all the changes from Enyim.Caching 2.7</li>
+</ul>
+
+<p>Make sure you update your configuration files accordingly!</p>
+</body>
+</html>

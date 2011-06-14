@@ -21,6 +21,12 @@
             Gets or sets the type of the factory.
             </summary>
         </member>
+        <member name="T:Enyim.Collections.InterlockedStack`1">
+            <summary>
+            Implements a non-locking stack.
+            </summary>
+            <typeparam name="TItem"></typeparam>
+        </member>
         <member name="T:Enyim.Reflection.FastActivator">
             <summary>
             <para>Implements a very fast object factory for dynamic object creation. Dynamically generates a factory class which will use the new() constructor of the requested type.</para>
@@ -40,6 +46,17 @@
             </summary>
             <param name="type">The type to be created.</param>
             <returns>The newly created instance.</returns>
+        </member>
+        <member name="T:Enyim.Caching.ILogFactory">
+            <summary>
+            Implement this interface to instantiate your custom ILog implementation
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.ILog">
+            <summary>
+            The ILog interface is used by the client to log messages.
+            </summary>
+            <remarks>Use the <see cref="T:Enyim.Caching.LogManager" /> class to programmatically assign logger implementations.</remarks>
         </member>
         <member name="T:Enyim.Caching.LogManager">
             <summary>
@@ -583,17 +600,6 @@
             Creates an empty logger. Used when no other factories are installed.
             </summary>
         </member>
-        <member name="T:Enyim.Caching.ILogFactory">
-            <summary>
-            Implement this interface to instantiate your custom ILog implementation
-            </summary>
-        </member>
-        <member name="T:Enyim.Caching.ILog">
-            <summary>
-            The ILog interface is used by the client to log messages.
-            </summary>
-            <remarks>Use the <see cref="T:Enyim.Caching.LogManager" /> class to programmatically assign logger implementations.</remarks>
-        </member>
         <member name="T:Enyim.Caching.MemcachedClient">
             <summary>
             Memcached client.
@@ -1084,12 +1090,6 @@
             This is a ketama-like consistent hashing based node locator. Used when no other <see cref="T:IMemcachedNodeLocator"/> is specified for the pool.
             </summary>
         </member>
-        <member name="M:Enyim.Caching.Memcached.DefaultNodeLocator.callback_isAliveTimer(System.Object)">
-            <summary>
-            Checks if a dead node is working again.
-            </summary>
-            <param name="state"></param>
-        </member>
         <member name="M:Enyim.Caching.Memcached.DefaultNodeLocator.FindNode(System.String)">
             <summary>
             locates a node by its key
@@ -1213,6 +1213,14 @@
             Releases all resources allocated by this instance
             </summary>
         </member>
+        <member name="M:Enyim.Caching.Memcached.IOperation.ReadResponseAsync(Enyim.Caching.Memcached.PooledSocket,System.Action{System.Boolean})">
+            <summary>
+            'next' is called when the operation completes. The bool parameter indicates the success of the operation.
+            </summary>
+            <param name="socket"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
         <member name="P:Enyim.Caching.Memcached.ISingleItemOperation.CasValue">
             <summary>
             The CAS value returned by the server after executing the command.
@@ -1244,6 +1252,30 @@
             <param name="count">The number of bytes to read.</param>
             <remarks>This method blocks and will not return until the specified amount of bytes are read.</remarks>
         </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.ReceiveAsync(Enyim.Caching.Memcached.AsyncIOArgs)">
+            <summary>
+            Receives data asynchronously. Returns true if the IO is pending. Returns false if the socket already failed or the data was available in the buffer.
+            p.Next will only be called if the call completes asynchronously.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.PooledSocket.AsyncSocketHelper">
+            <summary>
+            Supports exactly one reader and writer, but they can do IO concurrently
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.AsyncSocketHelper.Read(Enyim.Caching.Memcached.AsyncIOArgs)">
+            <summary>
+            returns true if io is pending
+            </summary>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.AsyncSocketHelper.EndReceive">
+            <summary>
+            returns true when io is pending
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Enyim.Caching.Memcached.Protocol.MultiItemOperation">
             <summary>
             Base class for implementing operations working with multiple items.
@@ -1261,9 +1293,8 @@
         </member>
         <member name="M:Enyim.Caching.Memcached.Protocol.Binary.BinaryNode.CreateSocket">
             <summary>
-            Creates a new socket then authenticates it before putting it into the pool.
+            Authenticates the new socket before it is put into the pool.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Enyim.Caching.Memcached.Protocol.Binary.BinaryNode.Auth(Enyim.Caching.Memcached.PooledSocket)">
             <summary>
@@ -1281,6 +1312,19 @@
             <summary>
             Server pool implementing the binary protocol.
             </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Protocol.Binary.BinaryResponse.ReadAsync(Enyim.Caching.Memcached.PooledSocket,System.Action{System.Boolean},System.Boolean@)">
+            <summary>
+            Reads the response from the socket asynchronously.
+            </summary>
+            <param name="socket">The socket to read from.</param>
+            <param name="next">The delegate whihc will continue processing the response. This is only called if the read completes asynchronoulsy.</param>
+            <param name="ioPending">Set totrue if the read is still pending when ReadASync returns. In this case 'next' will be called when the read is finished.</param>
+            <returns>
+            If the socket is already dead, ReadAsync returns false, next is not called, ioPending = false
+            If the read completes synchronously (e.g. data is received from the buffer), it returns true/false depending on the StatusCode, and ioPending is set to true, 'next' will not be called.
+            It returns true if it has to read from the socket, so the operation will complate asynchronously at a later time. ioPending will be true, and 'next' will be called to handle the data
+            </returns>
         </member>
         <member name="T:Enyim.Caching.Memcached.Protocol.SingleItemOperation">
             <summary>
@@ -1379,6 +1423,11 @@
             <param name="server">The adress of the server</param>
             <param name="item">The stat value to be returned</param>
             <returns>The value of the stat item</returns>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.SlidingBuffer">
+            <summary>
+            Supports exactly one reader and writer, but they can access the buffer concurrently.
+            </summary>
         </member>
         <member name="T:Enyim.Caching.Memcached.StatItem">
             <summary>
@@ -1538,9 +1587,14 @@
             Flags set for this instance.
             </summary>
         </member>
+        <member name="T:Enyim.Caching.Memcached.DataContractTranscoder">
+            <summary>
+            Default <see cref="T:Enyim.Caching.Memcached.ITranscoder"/> implementation. Primitive types are manually serialized, the rest is serialized using <see cref="T:System.Runtime.Serialization.NetDataContractSerializer"/>.
+            </summary>
+        </member>
         <member name="T:Enyim.Caching.Memcached.DefaultTranscoder">
             <summary>
-            Default <see cref="T:ITranscoder"/> implementation. Primitive types are manually serialized, the rest is serialized using <see cref="T:BinarySerializer"/>.
+            Default <see cref="T:Enyim.Caching.Memcached.ITranscoder"/> implementation. Primitive types are manually serialized, the rest is serialized using <see cref="T:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"/>.
             </summary>
         </member>
         <member name="T:Enyim.Caching.Memcached.ITranscoder">
